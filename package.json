@@ -4,7 +4,7 @@
   "description": "File Parser that will take in a directory and search through all files in that directory for the provided keyword",
   "main": "fileParserScript.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
