@@ -1,5 +1,5 @@
 # FileParserScript
-File Parser that will take in a directory and search through all files in that directory for the provided keyword
+File Parser that will take in a directory and search through all files in that directory for the provided keyword. This project uses Express for the script and Mocha for tests.
 
 # Usage Instructions
 - Clone this project onto your machine.
