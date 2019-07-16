@@ -12,13 +12,13 @@ npm install
 node fileParserScript.js
 ```
 - Follow the instructions as stated here:
----
+
 ========================================
 Please input data as follows:
 1. Paste pathname of file directory to search in
 2. Input 'exit' to end the script.
 ========================================
----
+
 - Input 'exit' to end the script. Otherwise copy and paste the pathname of the directory to search in.
 - The script should return you a list of paths to the files containing 'TODO'
 
@@ -30,7 +30,7 @@ npm tests
 
 # Things to note
 - There is a test_dir in this project which contains two files which have 'TODOs' in them:
-/somedir2/anotherdir/index.js
-/somedir/somemodule/somefile.js
+1. /somedir2/anotherdir/index.js
+2. /somedir/somemodule/somefile.js
 
 You may run the code to compare results by passing in the test_dir pathname to the script.
