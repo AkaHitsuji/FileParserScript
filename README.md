@@ -4,13 +4,13 @@ File Parser that will take in a directory and search through all files in that d
 # Usage Instructions
 - Clone this project onto your machine.
 - Navigate to the root directory where this project is stored and run the following command to install all dependencies for this project:
----
+```
 npm install
----
+```
 - In the root of the cloned project, run the following command to execute the script:
----
+```
 node fileParserScript.js
----
+```
 - Follow the instructions as stated here:
 ---
 ========================================
@@ -24,9 +24,9 @@ Please input data as follows:
 
 # Tests
 Tests are stored in the test folder. Mocha was used for tests. To run the tests, cd to the root directory and run the following command to run the tests:
----
+```
 npm tests
----
+```
 
 # Things to note
 - There is a test_dir in this project which contains two files which have 'TODOs' in them:
