@@ -1,54 +1,54 @@
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
+
+const readline = require('readline').createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 var getCurrWorkingDirectory = function() {
-    var currCWD = process.cwd();
-    return currCWD;
+    return __dirname;
 }
 
-var readFilesInDir = function(directory, arrayResults) {
+var checkIfFileContainsString = (filePath, searchString)=> {
+   return new Promise(function(resolve, reject) {
+       var containsSearchString = false;
+       fs.readFile(filePath, "utf8", function(err,data) {
+           if (data.includes(searchString)) {
+               containsSearchString = true;
+           }
+           resolve(containsSearchString);
+       })
+   })
+}
+
+var readFilesInDir = function(directory, finished) {
+    var results = [];
     fs.readdir(directory, function (err, files) {
-      if (err) return arrayResults(error);
-      var i = 0;
-      (function next() {
-          var file = files[i++];
-          if(!file) return arrayResults(null);
+        if (err) return finished(err)
 
-          file = directory + '/' + file;
-          fs.stat(file, function (error, stat) {
-            if (error) {
-              console.error("Error stating file.", error);
-              return;
-            }
-
-            else if (stat && stat.isDirectory()) {
-                readFilesInDir(file, function (error) {
-                    next();
-                });
-            } else {
-                // if file is a file
-                // TODO: readFile function to check if it contains todo
-                arrayResults.push(file)
-                next();
-            }
+        var lengthOfFiles = files.length;
+        if(!lengthOfFiles) return finished(null,results);
+        files.forEach(function(file) {
+            file = path.resolve(directory, file);
+            fs.stat(file, function(err, stat) {
+                if (stat && stat.isDirectory()) {
+                    readFilesInDir(file, function(err, res) {
+                        results = results.concat(res);
+                        lengthOfFiles--;
+                        if(!lengthOfFiles) finished(null,results);
+                    });
+                } else {
+                    checkIfFileContainsString(file, 'TODO').then(function(res) {
+                        if (res) results.push(file);
+                        lengthOfFiles--;
+                        if(!lengthOfFiles) finished(null,results);
+                    })
+                }
+            });
         });
-    })();
-});
-}
-
-var containsSearchString = false;
-var checkIfFileContainsString = function(filePath, searchString) {
-    fs.readFile(filePath, "utf8", function (err, data) {
-      if (err) throw err;
-
-      if(data.includes(searchString)){
-          containsSearchString = true;
-      }
-      else containsSearchString = false;
-
-      return containsSearchString;
-  });
-}
+    });
+};
 
 module.exports.getCurrWorkingDirectory = getCurrWorkingDirectory;
 module.exports.readFilesInDir = readFilesInDir;

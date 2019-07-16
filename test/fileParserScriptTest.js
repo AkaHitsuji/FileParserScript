@@ -1,39 +1,43 @@
-// import {getCurrWorkingDirectory, readFilesInDir, checkIfFileContainsString} from '../fileParserScript';
-// import {expect} from 'chai';
-// import {assert} from 'assert';
+const expect = require('chai').expect;
+const assert = require('assert');
+const fps = require('../fileParserScript.js');
 
-var expect = require('chai').expect;
-var assert = require('assert');
-var fileParserScript = require('../fileParserScript.js');
-
-describe('fileParserScript tests', () => {
+describe('fps tests', () => {
 
   it('getCurrWorkingDirectory should return cwd', ()=> {
       const currDirectory = "/Users/AngYang/gitHub_Projects/FileParserScript"
-      expect(fileParserScript.getCurrWorkingDirectory()).to.equal(currDirectory)
+      expect(fps.getCurrWorkingDirectory()).to.equal(currDirectory)
   })
 
-  it('readFilesInDir result should be more than 1', ()=> {
-      var currDirectory = fileParserScript.getCurrWorkingDirectory();
+  it('readFilesInDir result should have more than one entry', ()=> {
+      var currDirectory = fps.getCurrWorkingDirectory();
       var testDirectory = currDirectory + '/test_dir';
-      var arrayResults = [];
 
-      fileParserScript.readFilesInDir(testDirectory, arrayResults, function(err, res) {
-          arrayResults = res;
-          console.log('these are the array results: ',arrayResults);
-          expect(arrayResults.length>1).to.equal(true);
+      fps.readFilesInDir(testDirectory, function(err, results) {
+        if (err) throw err;
+        expect(results.length>1).to.equal(true);
+      });
+  })
+
+  it('promised readFile should return true for somefile.js', (done)=> {
+      var currDirectory = fps.getCurrWorkingDirectory();
+      var somefileDirectory = currDirectory + "/test_dir/somedir/somemodule/somefile.js"
+
+      fps.checkIfFileContainsString(somefileDirectory, 'TODO').then(function(res) {
+          console.log('this is the result: ',res);
+          assert.equal(res, true);
+          done();
       })
   })
 
-  it('readFile should return true for somefile.js', ()=> {
-      var currDirectory = fileParserScript.getCurrWorkingDirectory();
-      var somefileDirectory = currDirectory + "/test_dir/somedir/somemodule/somefile.js"
+  it('promised readFile should return false for someotherfile.js', (done)=> {
+      var currDirectory = fps.getCurrWorkingDirectory();
+      var somefileDirectory = currDirectory + "/test_dir/somedir/somemodule/someotherfile.js"
 
-      var containsTodo;
-
-      fileParserScript.checkIfFileContainsString(somefileDirectory, 'TODO', function(err, res) {
-          containsTodo = res;
-          expect(containsTodo).to.equal(true);
+      fps.checkIfFileContainsString(somefileDirectory, 'TODO').then(function(res) {
+          console.log('this is the result: ',res);
+          assert.equal(res, false);
+          done();
       })
   })
 
