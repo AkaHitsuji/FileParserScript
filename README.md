@@ -22,7 +22,7 @@ Please input data as follows:
 ========================================
 
 - Input 'exit' to end the script. Otherwise copy and paste the pathname of the directory to search in.
-- The script should return you a list of paths to the files containing 'TODO'
+- If you input the directory path, the script should return you a list of paths to the files containing 'TODO'
 
 # Tests
 Tests are stored in the test folder. Mocha was used for tests. To run the tests, cd to the root directory and run the following command to run the tests:
