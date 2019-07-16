@@ -1,11 +1,6 @@
 const fs = require('fs');
 const path = require('path');
 
-const readline = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
 var getCurrWorkingDirectory = function() {
     return __dirname;
 }
@@ -49,6 +44,39 @@ var readFilesInDir = function(directory, finished) {
         });
     });
 };
+
+
+//
+//FileParser Script for command line input
+//
+var standard_input = process.stdin;
+standard_input.setEncoding('utf-8');
+console.log("\n========================================\nPlease input data as follows:\n1. Paste pathname of file directory to search in\n2. Input 'exit' to end the program.\n========================================");
+
+// When user input data and click enter key.
+standard_input.on('data', function (data) {
+    if(data === 'exit\n'){
+        console.log("\nProgram terminated, thank you for using this script coded by AkaHitsuji :)");
+        process.exit();
+    }else
+    {
+        var fileDirectoryPath = data.replace(/\r?\n|\r/g, "");
+        var filePathsWithSearchString;
+        readFilesInDir(fileDirectoryPath, function(err, results) {
+          if (err) throw err;
+          filePathsWithSearchString = results;
+
+          console.log("\n\nSearch Completed!!!\nThese are the files that contain the search string 'TODO':");
+          filePathsWithSearchString.forEach(function(filePath) {
+              console.log(filePath);
+          });
+
+          console.log("\n========================================\nPlease input data as follows:\n1. Paste pathname of file directory to search in\n2. Input 'exit' to end the program.\n========================================");
+        });
+
+    }
+});
+
 
 module.exports.getCurrWorkingDirectory = getCurrWorkingDirectory;
 module.exports.readFilesInDir = readFilesInDir;
