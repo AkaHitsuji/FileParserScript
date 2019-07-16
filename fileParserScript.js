@@ -51,12 +51,12 @@ var readFilesInDir = function(directory, finished) {
 //
 var standard_input = process.stdin;
 standard_input.setEncoding('utf-8');
-console.log("\n========================================\nPlease input data as follows:\n1. Paste pathname of file directory to search in\n2. Input 'exit' to end the program.\n========================================");
+console.log("\n========================================\nPlease input data as follows:\n1. Paste pathname of file directory to search in\n2. Input 'exit' to end the script.\n========================================");
 
 // When user input data and click enter key.
 standard_input.on('data', function (data) {
     if(data === 'exit\n'){
-        console.log("\nProgram terminated, thank you for using this script coded by AkaHitsuji :)");
+        console.log("\nScript terminated, thank you for using this script coded by AkaHitsuji :)");
         process.exit();
     }else
     {
@@ -71,7 +71,7 @@ standard_input.on('data', function (data) {
               console.log(filePath);
           });
 
-          console.log("\n========================================\nPlease input data as follows:\n1. Paste pathname of file directory to search in\n2. Input 'exit' to end the program.\n========================================");
+          console.log("\n========================================\nPlease input data as follows:\n1. Paste pathname of file directory to search in\n2. Input 'exit' to end the script.\n========================================");
         });
 
     }
