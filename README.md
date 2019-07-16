@@ -14,9 +14,11 @@ node fileParserScript.js
 - Follow the instructions as stated here:
 
 ========================================
+
 Please input data as follows:
 1. Paste pathname of file directory to search in
 2. Input 'exit' to end the script.
+
 ========================================
 
 - Input 'exit' to end the script. Otherwise copy and paste the pathname of the directory to search in.
